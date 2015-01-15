@@ -1,15 +1,38 @@
-body {
-	background-color: black;
-	color:white;
-}
-
 html, body {
 	margin:0;
 	width:100%;
 	height:100%;
 }
 
+body {
+	background: url('../img/balloon-back.jpg');
+	background-size: cover;
+	font-family: arial;
+	text-align: center;
+}
+
+h1 {
+	font-size: 1.7em;
+}
+
 .inner-container {
-	width: 500px;
+	width: 300px;
 	margin: auto;
+}
+
+.quest {
+	list-style-type: none;
+	border: 2px solid black;
+	height: 60px;
+	margin-top: 15px;
+	line-height: 60px;
+}
+
+.quest:hover{
+	font-weight: bold;
+	font-size: 20px
+}
+
+.answer-image {
+	margin: 10px 0;
 }

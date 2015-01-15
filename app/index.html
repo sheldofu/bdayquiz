@@ -8,17 +8,21 @@
 	</head>
 	<body ng-app="quizFuApp">
 			<div class="inner-container">
+				<img src="img/happy.png">
 				<h1>THE BIRTHDAY QUIZ!</h1>
 				<div ng-controller="QuestionController">
-					<ul>
-						<li ng-repeat='q in currentQuestions'>
-							{{q.question}}
-						</li>
-					</ul>
-					<div ng-repeat='o in questions'>
-							{{o.options}}
+				<h1>Question {{current}}</h1>
+					<div ng-hide='proceed' ng-repeat='q in currentQuestions'>
+					<h2>{{q.question}}</h2>
+							<div class="quest" ng-click='isCorrect($index + 1, q.correctOption)' id='{{$index + 1}}' ng-repeat='o in q.options'>
+								{{o}}
+							</div>
 					</div>
-					<button ng-click="nextQ()">Next</button>
+					<div ng-show='proceed' ng-repeat='q in currentQuestions'>
+						{{q.comment}}
+						<img height="280" class="answer-image" ng-src="img/{{q.relatedImage}}">
+					</div>
+					<button ng-show='proceed' ng-click='nextQuestion()'>Next Question</button>
 				</div>
 			</div>
 	</body>
@@ -40,31 +44,48 @@ app.controller('QuestionController', function($scope){
 	$scope.questions = [
 		{
 			id:"1",
-			question:"Quezzie 1",
+			question:"How old are you?",
 			options:{
-				one:"Yes",
-				two:"No",
-				three:"Maybe"
-			}
+				one:"31",
+				two:"32",
+				three:"fucking old"
+			},
+			correctOption:"1",
+			relatedImage:"bingo.jpg",
+			comment:"Well done :D"
 		},
 		{
 			id:"2",
 			question:"Quezzie 2",
 			options:{
-				one:"Yes",
-				two:"No",
-				three:"Maybe"
-			}
+				one:"blergh",
+				two:"yapr",
+				three:"Maewfybe"
+			},
+			correctOption:"1",
+			relatedImage:"happy.png",
+			comment:"Yessss"
 		}
 	]
 
-	$scope.current = 1
+	$scope.current = 1;
+	$scope.proceed = false;
 
-	function nextQ($scope){
-		$scope.current += 1
-		console.log($scope.current)
+	$scope.isCorrect = function(selected, correct){
+		if (selected == Number(correct)) {
+			$scope.proceed = true;
+		} else {
+
+		}
+	}
+
+	$scope.nextQuestion = function(){
+		$scope.current += 1		
+		$scope.currentQuestions = $scope.questions.slice($scope.current-1, $scope.current);
+		$scope.proceed = false;
 	}
 
 	$scope.currentQuestions = $scope.questions.slice($scope.current-1, $scope.current);
 })
+
 </script>
